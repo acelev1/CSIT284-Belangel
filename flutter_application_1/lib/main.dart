@@ -1,37 +1,37 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+  runApp(
+    MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('First App'),
-        ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Text(
-                'Hello World!',
-              ),
-              Text(
-                'It\'s time to learn Flutter!',
-              ),
-            ],
+        body: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(colors: [
+              Colors.blueAccent,
+              Colors.amberAccent
+            ])
+          ),
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image.asset(
+                  width: 200,
+                  'assets/dice-images/dice-images/dice-2.png'),
+                TextButton(onPressed: () {}, 
+                child: Text(
+                  style: TextStyle(
+                    fontSize: 28,
+                  ),
+                  "Roll Dice"
+                  )
+                ),
+              ],
+            )
+          ),
           ),
         ),
       ),
-    );
-  }
+  );
 }
+
