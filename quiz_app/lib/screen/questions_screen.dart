@@ -26,21 +26,22 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
     final currentQuestion = questions[currrentQuestionIndex];
     return Center(
       child: Container(
-        margin: const EdgeInsets.all(35),
+        margin: const EdgeInsets.symmetric(horizontal: 40),
+        constraints: const BoxConstraints(maxWidth: 350),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: CrossAxisAlignment.stretch, 
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              textAlign: TextAlign.center,
               currentQuestion.text,
-               style: GoogleFonts.roboto(
+              textAlign: TextAlign.center,
+              style: GoogleFonts.roboto(
                 color: Colors.white,
                 fontSize: 20,
                 fontWeight: FontWeight.bold, 
                ),
                ),
-            const SizedBox(height: 30),
+            const SizedBox(height: 20),
             ...currentQuestion.getShuffledAnswers().map((answer) {
               return AnswerButton(
                 text: answer, 
@@ -48,7 +49,8 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                   answerQuestion(answer);
                 },
               );
-            })
+            }),
+            const SizedBox(height: 10),
           ],
         ),
       ),
