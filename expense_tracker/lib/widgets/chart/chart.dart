@@ -17,21 +17,25 @@ class Chart extends StatelessWidget {
     ];
   }
 
-  double get maxTotalExpense {
-  const double targetBudgetCeiling = 1000.0; // Your target max budget limit
-  
-  double maxCategoryTotal = 0;
-  for (final bucket in buckets) {
-    if (bucket.totalExpenses > maxCategoryTotal) {
-      maxCategoryTotal = bucket.totalExpenses;
+  // Calculate Grand Total of all expenses
+  double get grandTotal {
+    double sum = 0;
+    for (final expense in expenses) {
+      sum += expense.amount;
     }
+    return sum;
   }
 
-  // Uses budget ceiling, but expands dynamically if spending exceeds it
-  return maxCategoryTotal > targetBudgetCeiling 
-      ? maxCategoryTotal * 1.2 
-      : targetBudgetCeiling;
-}
+  double get maxTotalExpense {
+    double maxCategoryTotal = 0;
+    for (final bucket in buckets) {
+      if (bucket.totalExpenses > maxCategoryTotal) {
+        maxCategoryTotal = bucket.totalExpenses;
+      }
+    }
+    // Add 30% padding so bars don't clip at top
+    return maxCategoryTotal == 0 ? 1 : maxCategoryTotal * 1.3;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,12 +44,9 @@ class Chart extends StatelessWidget {
 
     return Container(
       margin: const EdgeInsets.all(16),
-      padding: const EdgeInsets.symmetric(
-        vertical: 25,
-        horizontal: 16,
-      ),
+      padding: const EdgeInsets.all(16),
       width: double.infinity,
-      height: 200,
+      height: 220, // Extended height to fit numbers and header
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         gradient: LinearGradient(
@@ -59,39 +60,43 @@ class Chart extends StatelessWidget {
       ),
       child: Column(
         children: [
+          // Header displaying Total Expenses recorded
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Total Spending',
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+              Text(
+                '\$${grandTotal.toStringAsFixed(2)}',
+                style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          // Chart Bars displaying individual totals
           Expanded(
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 for (final bucket in buckets)
-                  Expanded(
-                    child: Stack(
-                      alignment: Alignment.bottomCenter,
-                      children: [
-                        // Soft Background track behind bars
-                        Container(
-                          width: 14,
-                          decoration: BoxDecoration(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .primary
-                                .withOpacity(0.1),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                        // Active filled bar
-                        ChartBar(
-                          fill: maxTotalExpense == 0
-                              ? 0
-                              : bucket.totalExpenses / maxTotalExpense,
-                        ),
-                      ],
-                    ),
+                  ChartBar(
+                    fill: maxTotalExpense == 0
+                        ? 0
+                        : bucket.totalExpenses / maxTotalExpense,
+                    amount: bucket.totalExpenses,
                   ),
               ],
             ),
           ),
           const SizedBox(height: 12),
+          // Category Icons Row
           Row(
             children: buckets
                 .map(
@@ -107,7 +112,7 @@ class Chart extends StatelessWidget {
                   ),
                 )
                 .toList(),
-          )
+          ),
         ],
       ),
     );

@@ -4,9 +4,11 @@ class ChartBar extends StatelessWidget {
   const ChartBar({
     super.key,
     required this.fill,
+    required this.amount,
   });
 
   final double fill;
+  final double amount;
 
   @override
   Widget build(BuildContext context) {
@@ -15,24 +17,50 @@ class ChartBar extends StatelessWidget {
 
     return Expanded(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: FractionallySizedBox(
-          heightFactor: fill,
-          child: SizedBox(
-            width: 14, // Controls the width of individual bars
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                shape: BoxShape.rectangle,
-                borderRadius: const BorderRadius.vertical(
-                  top: Radius.circular(10),
-                  bottom: Radius.circular(5),
+        padding: const EdgeInsets.symmetric(horizontal: 4),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            // Amount text displayed above each bar
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                '\$${amount.toStringAsFixed(0)}',
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.bold,
+                  color: isDarkMode
+                      ? Theme.of(context).colorScheme.secondary
+                      : Theme.of(context).colorScheme.primary,
                 ),
-                color: isDarkMode
-                    ? Theme.of(context).colorScheme.secondary
-                    : Theme.of(context).colorScheme.primary.withOpacity(0.85),
               ),
             ),
-          ),
+            const SizedBox(height: 4),
+            // Scaled Bar
+            Expanded(
+              child: FractionallySizedBox(
+                heightFactor: fill,
+                alignment: Alignment.bottomCenter,
+                child: SizedBox(
+                  width: 14,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.rectangle,
+                      borderRadius: const BorderRadius.vertical(
+                        top: Radius.circular(8),
+                      ),
+                      color: isDarkMode
+                          ? Theme.of(context).colorScheme.secondary
+                          : Theme.of(context)
+                              .colorScheme
+                              .primary
+                              .withOpacity(0.85),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
