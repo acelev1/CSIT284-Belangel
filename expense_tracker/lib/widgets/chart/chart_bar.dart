@@ -5,23 +5,21 @@ class ChartBar extends StatelessWidget {
     super.key,
     required this.fill,
     required this.amount,
+    required this.barColor,
   });
 
   final double fill;
   final double amount;
+  final Color barColor;
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode =
-        MediaQuery.of(context).platformBrightness == Brightness.dark;
-
     return Expanded(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 4),
+        padding: const EdgeInsets.symmetric(horizontal: 6),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            // Amount text displayed above each bar
             FittedBox(
               fit: BoxFit.scaleDown,
               child: Text(
@@ -29,29 +27,24 @@ class ChartBar extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 11,
                   fontWeight: FontWeight.bold,
-                  color: isDarkMode
-                      ? Theme.of(context).colorScheme.secondary
-                      : Theme.of(context).colorScheme.primary,
+                  color: barColor,
                 ),
               ),
             ),
-            const SizedBox(height: 4),
-            // Scaled Bar
+            const SizedBox(height: 6),
             Expanded(
               child: FractionallySizedBox(
                 heightFactor: fill,
                 alignment: Alignment.bottomCenter,
                 child: SizedBox(
-                  width: 14,
+                  width: 16,
                   child: DecoratedBox(
                     decoration: BoxDecoration(
                       shape: BoxShape.rectangle,
                       borderRadius: const BorderRadius.vertical(
-                        top: Radius.circular(8),
+                        top: Radius.circular(6),
                       ),
-                      color: isDarkMode
-                      ? const Color.fromARGB(255, 249, 247, 247)
-                      : const Color.fromARGB(255, 4, 5, 3).withOpacity(0.85),
+                      color: barColor,
                     ),
                   ),
                 ),

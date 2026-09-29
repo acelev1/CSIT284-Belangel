@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:expense_tracker/screens/expenses.dart';
 
-// Custom Primary Seed Color Palette
 var kColorScheme = ColorScheme.fromSeed(
-  seedColor: const Color.fromARGB(255, 76, 5, 255), // Royal Blue
+  seedColor: const Color(0xFF4F46E5), // Indigo Accent
+  surface: const Color(0xFFF8FAFC),   // Clean Off-White Surface
 );
 
 var kDarkColorScheme = ColorScheme.fromSeed(
   brightness: Brightness.dark,
-  seedColor: const Color.fromARGB(255, 225, 163, 9), // Slate Dark Blue
+  seedColor: const Color(0xFF6366F1),
+  surface: const Color(0xFF0F172A),   // Deep Slate Dark Surface
 );
 
 void main() {
@@ -21,11 +22,13 @@ void main() {
         colorScheme: kDarkColorScheme,
         scaffoldBackgroundColor: const Color(0xFF0F172A),
         cardTheme: CardThemeData(
-          color: kDarkColorScheme.surfaceContainerHigh,
-          margin: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 8,
+          color: const Color(0xFF1E293B), // Dark Slate Cards
+          elevation: 2,
+          shadowColor: Colors.black.withValues(alpha: 0.3),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
           ),
+          margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
@@ -38,29 +41,31 @@ void main() {
       // Light Theme Configuration
       theme: ThemeData().copyWith(
         colorScheme: kColorScheme,
-        scaffoldBackgroundColor: const Color.fromARGB(255, 158, 2, 30),
+        scaffoldBackgroundColor: const Color(0xFFF1F5F9), // Subtle Cool Grey
         appBarTheme: const AppBarTheme().copyWith(
-          backgroundColor: kColorScheme.primary,
-          foregroundColor: kColorScheme.onPrimary,
+          backgroundColor: const Color(0xFF3730A3), // Deep Royal Indigo
+          foregroundColor: Colors.white,
           elevation: 0,
         ),
         cardTheme: CardThemeData(
-          color: kColorScheme.secondaryContainer.withOpacity(0.4),
-          margin: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 8,
+          color: Colors.white, // Crisp White Card Surfaces
+          elevation: 2,
+          shadowColor: Colors.black.withValues(alpha: 0.08),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
           ),
+          margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             backgroundColor: kColorScheme.primary,
-            foregroundColor: kColorScheme.onPrimary,
+            foregroundColor: Colors.white,
           ),
         ),
         textTheme: ThemeData().textTheme.copyWith(
-          titleLarge: TextStyle(
+          titleLarge: const TextStyle(
             fontWeight: FontWeight.bold,
-            color: kColorScheme.onSurface,
+            color: Color(0xFF0F172A),
             fontSize: 16,
           ),
         ),
