@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:expense_tracker/models/expense.dart';
-import 'package:expense_tracker/widgets/expenses_list.dart';
-import 'package:expense_tracker/widgets/new_expenses.dart';
 import 'package:expense_tracker/widgets/chart/chart.dart';
+import 'package:expense_tracker/widgets/expenses_list.dart';
+import 'package:expense_tracker/widgets/new_expenses.dart'; 
 
 class Expenses extends StatefulWidget {
   const Expenses({super.key});
@@ -27,6 +27,15 @@ class _ExpensesState extends State<Expenses> {
     ),
   ];
 
+  void _openAddExpenseOverlay() {
+    showModalBottomSheet(
+      useSafeArea: true,
+      isScrollControlled: true,
+      context: context,
+      builder: (ctx) => NewExpense(onAddExpense: _addExpense),
+    );
+  }
+
   void _addExpense(Expense expense) {
     setState(() {
       _registeredExpenses.add(expense);
@@ -35,11 +44,9 @@ class _ExpensesState extends State<Expenses> {
 
   void _removeExpense(Expense expense) {
     final expenseIndex = _registeredExpenses.indexOf(expense);
-
     setState(() {
       _registeredExpenses.remove(expense);
     });
-
     ScaffoldMessenger.of(context).clearSnackBars();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -54,15 +61,6 @@ class _ExpensesState extends State<Expenses> {
           },
         ),
       ),
-    );
-  }
-
-  void _openAddExpenseOverlay() {
-    showModalBottomSheet(
-      useSafeArea: true,
-      isScrollControlled: true,
-      context: context,
-      builder: (ctx) => NewExpense(onAddExpense: _addExpense),
     );
   }
 
@@ -95,15 +93,20 @@ class _ExpensesState extends State<Expenses> {
           ? Column(
               children: [
                 Chart(expenses: _registeredExpenses),
-                Expanded(
-                  child: mainContent,
-                ),
+                Expanded(child: mainContent),
               ],
             )
           : Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
-                  child: Chart(expenses: _registeredExpenses),
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 8.0, left: 8.0),
+                    child: SizedBox(
+                      height: 300, // 
+                      child: Chart(expenses: _registeredExpenses),
+                    ),
+                  ),
                 ),
                 Expanded(
                   child: mainContent,

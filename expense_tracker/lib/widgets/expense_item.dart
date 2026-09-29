@@ -43,7 +43,7 @@ class ExpenseItem extends StatelessWidget {
                   '\$${expense.amount.toStringAsFixed(2)}',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: categoryColor, // High contrast, category-matched price
+                    color: categoryColor, 
                   ),
                 ),
                 const Spacer(),
@@ -51,7 +51,7 @@ class ExpenseItem extends StatelessWidget {
                   children: [
                     Icon(
                       categoryIcons[expense.category],
-                      color: categoryColor, // Category-matched icon
+                      color: categoryColor, 
                       size: 20,
                     ),
                     const SizedBox(width: 8),

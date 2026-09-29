@@ -30,17 +30,17 @@ class Chart extends StatelessWidget {
     }
   }
 
-  // Soft, harmonious accent colors
+  
   Color getCategoryColor(Category category) {
     switch (category) {
       case Category.food:
-        return const Color(0xFFD97706); // Soft Warm Amber
+        return const Color(0xFFD97706); 
       case Category.leisure:
-        return const Color(0xFF7C3AED); // Modern Violet
+        return const Color(0xFF7C3AED); 
       case Category.travel:
-        return const Color(0xFF0284C7); // Muted Sky Blue
+        return const Color(0xFF0284C7); 
       case Category.work:
-        return const Color(0xFF059669); // Sage Emerald
+        return const Color(0xFF059669); 
     }
   }
 
@@ -72,7 +72,7 @@ class Chart extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            // Total Spending Inline Header
+            
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -93,7 +93,7 @@ class Chart extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 12),
-            // Scaled Bars
+            
             Expanded(
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -110,7 +110,7 @@ class Chart extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 12),
-            // Category Icons & Text Labels
+            
             Row(
               children: buckets
                   .map(

@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:expense_tracker/screens/expenses.dart';
 
 var kColorScheme = ColorScheme.fromSeed(
-  seedColor: const Color(0xFF4F46E5), // Indigo Accent
-  surface: const Color(0xFFF8FAFC),   // Clean Off-White Surface
+  seedColor: const Color(0xFF4F46E5), 
+  surface: const Color(0xFFF8FAFC),   
 );
 
 var kDarkColorScheme = ColorScheme.fromSeed(
   brightness: Brightness.dark,
   seedColor: const Color(0xFF6366F1),
-  surface: const Color(0xFF0F172A),   // Deep Slate Dark Surface
+  surface: const Color(0xFF0F172A),   
 );
 
 void main() {
@@ -17,12 +17,12 @@ void main() {
     MaterialApp(
       debugShowCheckedModeBanner: false,
       
-      // Dark Theme Configuration
+     
       darkTheme: ThemeData.dark().copyWith(
         colorScheme: kDarkColorScheme,
         scaffoldBackgroundColor: const Color(0xFF0F172A),
         cardTheme: CardThemeData(
-          color: const Color(0xFF1E293B), // Dark Slate Cards
+          color: const Color(0xFF1E293B), 
           elevation: 2,
           shadowColor: Colors.black.withValues(alpha: 0.3),
           shape: RoundedRectangleBorder(
@@ -38,17 +38,17 @@ void main() {
         ),
       ),
       
-      // Light Theme Configuration
+      
       theme: ThemeData().copyWith(
         colorScheme: kColorScheme,
-        scaffoldBackgroundColor: const Color(0xFFF1F5F9), // Subtle Cool Grey
+        scaffoldBackgroundColor: const Color(0xFFF1F5F9), 
         appBarTheme: const AppBarTheme().copyWith(
-          backgroundColor: const Color(0xFF3730A3), // Deep Royal Indigo
+          backgroundColor: const Color(0xFF3730A3), 
           foregroundColor: Colors.white,
           elevation: 0,
         ),
         cardTheme: CardThemeData(
-          color: Colors.white, // Crisp White Card Surfaces
+          color: Colors.white, 
           elevation: 2,
           shadowColor: Colors.black.withValues(alpha: 0.08),
           shape: RoundedRectangleBorder(
