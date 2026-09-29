@@ -13,7 +13,7 @@ class Expenses extends StatefulWidget {
 class _ExpensesState extends State<Expenses> {
   final List<Expense> _registeredExpenses = [
     Expense(
-      title: 'Trading Course',
+      title: 'Flutter Course',
       amount: 19.99,
       date: DateTime.now(),
       category: Category.work,
@@ -26,10 +26,17 @@ class _ExpensesState extends State<Expenses> {
     ),
   ];
 
+  void _addExpense(Expense expense) {
+    setState(() {
+      _registeredExpenses.add(expense);
+    });
+  }
+
   void _openAddExpenseOverlay() {
     showModalBottomSheet(
+      isScrollControlled: true,
       context: context,
-      builder: (ctx) => const NewExpense(),
+      builder: (ctx) => NewExpense(onAddExpense: _addExpense),
     );
   }
 
@@ -38,6 +45,8 @@ class _ExpensesState extends State<Expenses> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Expense Tracker'),
+        backgroundColor: const Color.fromARGB(255, 96, 59, 181),
+        foregroundColor: Colors.white,
         actions: [
           IconButton(
             onPressed: _openAddExpenseOverlay,
