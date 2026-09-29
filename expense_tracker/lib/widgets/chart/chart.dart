@@ -49,14 +49,14 @@ class Chart extends StatelessWidget {
       height: 220, // Extended height to fit numbers and header
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        gradient: LinearGradient(
+       gradient: LinearGradient(
           colors: [
-            Theme.of(context).colorScheme.primary.withOpacity(0.25),
-            Theme.of(context).colorScheme.primary.withOpacity(0.0),
-          ],
-          begin: Alignment.bottomCenter,
-          end: Alignment.topCenter,
-        ),
+         const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3), // <-- Change your chart gradient color here
+         const Color.fromARGB(255, 0, 0, 0).withOpacity(0.0),
+       ],
+         begin: Alignment.bottomCenter,
+        end: Alignment.topCenter,
+    ),
       ),
       child: Column(
         children: [

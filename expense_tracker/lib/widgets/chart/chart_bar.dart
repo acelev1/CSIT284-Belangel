@@ -50,11 +50,8 @@ class ChartBar extends StatelessWidget {
                         top: Radius.circular(8),
                       ),
                       color: isDarkMode
-                          ? Theme.of(context).colorScheme.secondary
-                          : Theme.of(context)
-                              .colorScheme
-                              .primary
-                              .withOpacity(0.85),
+                      ? const Color.fromARGB(255, 249, 247, 247)
+                      : const Color.fromARGB(255, 4, 5, 3).withOpacity(0.85),
                     ),
                   ),
                 ),
