@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:expense_tracker/models/expense.dart';
 import 'package:expense_tracker/widgets/chart/chart.dart';
 import 'package:expense_tracker/widgets/expenses_list.dart';
-import 'package:expense_tracker/widgets/new_expenses.dart'; 
+import 'package:expense_tracker/widgets/empty_expenses_state.dart';
+import 'package:expense_tracker/widgets/new_expenses.dart';
 
 class Expenses extends StatefulWidget {
   const Expenses({super.key});
@@ -68,9 +69,7 @@ class _ExpensesState extends State<Expenses> {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
 
-    Widget mainContent = const Center(
-      child: Text('No expenses found. Start adding some!'),
-    );
+    Widget mainContent = const EmptyExpensesState();
 
     if (_registeredExpenses.isNotEmpty) {
       mainContent = ExpensesList(
@@ -103,7 +102,7 @@ class _ExpensesState extends State<Expenses> {
                   child: Padding(
                     padding: const EdgeInsets.only(top: 8.0, left: 8.0),
                     child: SizedBox(
-                      height: 300, // 
+                      height: 300,
                       child: Chart(expenses: _registeredExpenses),
                     ),
                   ),
