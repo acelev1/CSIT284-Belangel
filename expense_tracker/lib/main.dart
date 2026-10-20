@@ -1,6 +1,6 @@
 import 'package:expense_tracker/screens/tabs.dart';
 import 'package:flutter/material.dart';
-import 'package:expense_tracker/screens/expenses.dart';
+
 
 var kColorScheme = ColorScheme.fromSeed(
   seedColor: const Color(0xFF4F46E5), 
