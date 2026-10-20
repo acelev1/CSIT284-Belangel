@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:expense_tracker/models/expense.dart';
+import 'package:expense_tracker/screens/category_expenses.dart';
 
 class ExpenseItem extends StatelessWidget {
-  const ExpenseItem(this.expense, {super.key});
+  const ExpenseItem(
+    this.expense, {
+    super.key,
+    this.allExpenses,
+    this.onRemoveExpense,
+  });
 
   final Expense expense;
+  final List<Expense>? allExpenses;
+  final void Function(Expense expense)? onRemoveExpense;
 
   Color get categoryColor {
     switch (expense.category) {
@@ -19,53 +27,71 @@ class ExpenseItem extends StatelessWidget {
     }
   }
 
+  void _selectCategory(BuildContext context) {
+    if (allExpenses != null && onRemoveExpense != null) {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (ctx) => CategoryExpensesScreen(
+            category: expense.category,
+            expenses: allExpenses!,
+            onRemoveExpense: onRemoveExpense!,
+          ),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 16,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              expense.title,
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-            ),
-            const SizedBox(height: 6),
-            Row(
-              children: [
-                Text(
-                  '\$${expense.amount.toStringAsFixed(2)}',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: categoryColor, 
-                  ),
-                ),
-                const Spacer(),
-                Row(
-                  children: [
-                    Icon(
-                      categoryIcons[expense.category],
-                      color: categoryColor, 
-                      size: 20,
+      child: InkWell(
+        onTap: () => _selectCategory(context),
+        borderRadius: BorderRadius.circular(12),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 20,
+            vertical: 16,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                expense.title,
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
                     ),
-                    const SizedBox(width: 8),
-                    Text(
-                      expense.formattedDate,
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: const Color(0xFF64748B),
-                          ),
+              ),
+              const SizedBox(height: 6),
+              Row(
+                children: [
+                  Text(
+                    '\$${expense.amount.toStringAsFixed(2)}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: categoryColor,
                     ),
-                  ],
-                ),
-              ],
-            ),
-          ],
+                  ),
+                  const Spacer(),
+                  Row(
+                    children: [
+                      Icon(
+                        categoryIcons[expense.category],
+                        color: categoryColor,
+                        size: 20,
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        expense.formattedDate,
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              color: const Color(0xFF64748B),
+                            ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
