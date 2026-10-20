@@ -5,113 +5,27 @@ import 'package:expense_tracker/widgets/expenses_list.dart';
 import 'package:expense_tracker/widgets/empty_expenses_state.dart';
 import 'package:expense_tracker/widgets/new_expenses.dart';
 
-class Expenses extends StatefulWidget {
-  const Expenses({super.key});
+class Expenses extends StatelessWidget {
+  const Expenses({
+    super.key,
+    required this.expenses,
+    required this.onRemoveExpense,
+  });
 
-  @override
-  State<Expenses> createState() => _ExpensesState();
-}
-
-class _ExpensesState extends State<Expenses> {
-  final List<Expense> _registeredExpenses = [
-    Expense(
-      title: 'Trading Course',
-      amount: 19.99,
-      date: DateTime.now(),
-      category: Category.work,
-    ),
-    Expense(
-      title: 'Cinema',
-      amount: 15.69,
-      date: DateTime.now(),
-      category: Category.leisure,
-    ),
-  ];
-
-  void _openAddExpenseOverlay() {
-    showModalBottomSheet(
-      useSafeArea: true,
-      isScrollControlled: true,
-      context: context,
-      builder: (ctx) => NewExpense(onAddExpense: _addExpense),
-    );
-  }
-
-  void _addExpense(Expense expense) {
-    setState(() {
-      _registeredExpenses.add(expense);
-    });
-  }
-
-  void _removeExpense(Expense expense) {
-    final expenseIndex = _registeredExpenses.indexOf(expense);
-    setState(() {
-      _registeredExpenses.remove(expense);
-    });
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        duration: const Duration(seconds: 3),
-        content: const Text('Expense deleted.'),
-        action: SnackBarAction(
-          label: 'Undo',
-          onPressed: () {
-            setState(() {
-              _registeredExpenses.insert(expenseIndex, expense);
-            });
-          },
-        ),
-      ),
-    );
-  }
+  final List<Expense> expenses;
+  final void Function(Expense expense) onRemoveExpense;
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-
     Widget mainContent = const EmptyExpensesState();
 
-    if (_registeredExpenses.isNotEmpty) {
+    if (expenses.isNotEmpty) {
       mainContent = ExpensesList(
-        expenses: _registeredExpenses,
-        onRemoveExpense: _removeExpense,
+        expenses: expenses,
+        onRemoveExpense: onRemoveExpense,
       );
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Expense Tracker'),
-        actions: [
-          IconButton(
-            onPressed: _openAddExpenseOverlay,
-            icon: const Icon(Icons.add),
-          ),
-        ],
-      ),
-      body: width < 600
-          ? Column(
-              children: [
-                Chart(expenses: _registeredExpenses),
-                Expanded(child: mainContent),
-              ],
-            )
-          : Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 8.0, left: 8.0),
-                    child: SizedBox(
-                      height: 300,
-                      child: Chart(expenses: _registeredExpenses),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: mainContent,
-                ),
-              ],
-            ),
-    );
+    return mainContent;
   }
 }

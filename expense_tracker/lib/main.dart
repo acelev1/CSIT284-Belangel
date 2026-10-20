@@ -1,3 +1,4 @@
+import 'package:expense_tracker/screens/tabs.dart';
 import 'package:flutter/material.dart';
 import 'package:expense_tracker/screens/expenses.dart';
 
@@ -71,7 +72,7 @@ void main() {
         ),
       ),
       themeMode: ThemeMode.system,
-      home: const Expenses(),
+      home: const TabsScreen(),
     ),
   );
 }
