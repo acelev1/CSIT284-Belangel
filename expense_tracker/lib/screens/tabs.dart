@@ -3,6 +3,7 @@ import 'package:expense_tracker/models/expense.dart';
 import 'package:expense_tracker/screens/expenses.dart';
 import 'package:expense_tracker/widgets/chart/chart.dart';
 import 'package:expense_tracker/widgets/new_expenses.dart';
+import 'package:expense_tracker/widgets/main_drawer.dart';
 
 class TabsScreen extends StatefulWidget {
   const TabsScreen({super.key});
@@ -94,6 +95,19 @@ class _TabsScreenState extends State<TabsScreen> {
       activePageTitle = 'Spending Analytics';
     }
 
+    void _setScreen(String identifier) {
+    Navigator.of(context).pop(); // Close the drawer
+    if (identifier == 'analytics') {
+      setState(() {
+        _selectedPageIndex = 1;
+      });
+    } else {
+      setState(() {
+        _selectedPageIndex = 0;
+      });
+    }
+  }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(activePageTitle),
@@ -104,6 +118,7 @@ class _TabsScreenState extends State<TabsScreen> {
           ),
         ],
       ),
+      drawer: MainDrawer(onSelectScreen: _setScreen),
       body: activePage,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedPageIndex,
