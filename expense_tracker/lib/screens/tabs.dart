@@ -73,6 +73,19 @@ class _TabsScreenState extends State<TabsScreen> {
     });
   }
 
+    void _setScreen(String identifier) {
+    Navigator.of(context).pop();
+    if (identifier == 'analytics') {
+      setState(() {
+        _selectedPageIndex = 1;
+      });
+    } else {
+      setState(() {
+        _selectedPageIndex = 0;
+      });
+    }
+  }
+  
   @override
   Widget build(BuildContext context) {
     Widget activePage = Expenses(
@@ -94,19 +107,6 @@ class _TabsScreenState extends State<TabsScreen> {
       );
       activePageTitle = 'Spending Analytics';
     }
-
-    void _setScreen(String identifier) {
-    Navigator.of(context).pop(); // Close the drawer
-    if (identifier == 'analytics') {
-      setState(() {
-        _selectedPageIndex = 1;
-      });
-    } else {
-      setState(() {
-        _selectedPageIndex = 0;
-      });
-    }
-  }
 
     return Scaffold(
       appBar: AppBar(
